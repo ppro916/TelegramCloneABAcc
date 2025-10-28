@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- Authentication Screen -->
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-container">
+            <div class="auth-header">
+                <div class="telegram-logo">
+                    <span class="material-icons">telegram</span>
+                </div>
+                <h1>Telegram</h1>
+                <p>Please wait while we connect to your account...</p>
+            </div>
+            
+            <div class="auth-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Loading credentials...</div>
+            </div>
+
+            <div class="auth-actions" id="authActions" style="display: none;">
+                <button class="auth-btn primary" id="connectBtn">
+                    <span class="material-icons">link</span>
+                    Connect to Telegram
+                </button>
+                <button class="auth-btn secondary" id="demoBtn">
+                    <span class="material-icons">play_arrow</span>
+                    Try Demo Mode
+                </button>
+            </div>
+
+            <div class="auth-status" id="authStatus"></div>
+        </div>
+    </div>
+
+    <!-- Main Telegram App -->
+    <div class="telegram-app" id="telegramApp" style="display: none;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="header-left">
+                    <button class="menu-btn" id="menuBtn">
+                        <span class="material-icons">menu</span>
+                    </button>
+                    <h2 class="app-title">Telegram</h2>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn" id="searchBtn">
+                        <span class="material-icons">search</span>
+                    </button>
+                    <button class="icon-btn" id="newChatBtn">
+                        <span class="material-icons">edit</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="material-icons">search</span>
+                    <input type="text" placeholder="Search" id="searchInput">
+                </div>
+            </div>
+
+            <div class="chat-list" id="chatList">
+                <!-- Chats will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="main-content">
+            <div class="chat-area" id="chatArea">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-content">
+                        <div class="welcome-icon">
+                            <span class="material-icons">telegram</span>
+                        </div>
+                        <h1>Telegram Web</h1>
+                        <p>Send and receive messages without keeping your phone online.</p>
+                        <p>Use Telegram from multiple devices simultaneously.</p>
+                        
+                        <div class="connection-status" id="connectionStatus">
+                            <div class="status-indicator connected"></div>
+                            <span>Connected to your account</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="active-chat" id="activeChat" style="display: none;">
+                    <div class="chat-header">
+                        <div class="chat-user-info">
+                            <div class="user-avatar" id="chatAvatar"></div>
+                            <div class="user-details">
+                                <div class="user-name" id="chatUserName"></div>
+                                <div class="user-status" id="chatUserStatus"></div>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="icon-btn">
+                                <span class="material-icons">search</span>
+                            </button>
+                            <button class="icon-btn">
+                                <span class="material-icons">more_vert</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="messages-container" id="messagesContainer">
+                        <!-- Messages will be loaded here -->
+                    </div>
+
+                    <div class="message-input-container">
+                        <div class="message-input-actions">
+                            <button class="icon-btn" id="attachBtn">
+                                <span class="material-icons">attach_file</span>
+                            </button>
+                            <button class="icon-btn" id="emojiBtn">
+                                <span class="material-icons">emoji_emotions</span>
+                            </button>
+                        </div>
+                        <div class="message-input-wrapper">
+                            <input type="text" placeholder="Message" id="messageInput">
+                        </div>
+                        <div class="message-send-actions">
+                            <button class="icon-btn" id="sendMessageBtn">
+                                <span class="material-icons">send</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-sidebar" id="rightSidebar">
+            <div class="right-sidebar-header">
+                <h3>User Info</h3>
+                <button class="icon-btn" id="closeRightSidebar">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="user-info-content">
+                <div class="user-avatar-large">
+                    <span class="material-icons">account_circle</span>
+                </div>
+                <h3 id="userFullName">User Name</h3>
+                <p id="userPhone">+1234567890</p>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span>Chats</span>
+                        <strong id="totalChats">0</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Contacts</span>
+                        <strong id="totalContacts">0</strong>
+                    </div>
+                </div>
+                
+                <div class="session-info">
+                    <h4>Session Status</h4>
+                    <div class="session-status connected">
+                        <span class="status-dot"></span>
+                        Connected
+                    </div>
+                    <p class="session-note">One-time setup completed. No OTP required.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/telegram-web@latest/dist/telegram-web.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
